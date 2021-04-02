@@ -1,20 +1,19 @@
 package main
 
-import "github.com/gin-gonic/gin"
-import "io/ioutil"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/tpkeeper/gin-dump"
+)
 
 func main() {
 	r := gin.Default()
+	r.Use(gindump.Dump())
 	r.GET("/*log", func(c *gin.Context) {
-		body, _ := ioutil.ReadAll(c.Request.Body)
-		println(string(body))
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
 	})
 	r.POST("/*log", func(c *gin.Context) {
-		body, _ := ioutil.ReadAll(c.Request.Body)
-		println(string(body))
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
