@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/tpkeeper/gin-dump"
+	"io/ioutil"
 )
 
 func main() {
@@ -14,8 +15,9 @@ func main() {
 		})
 	})
 	r.POST("/*log", func(c *gin.Context) {
+		body, _ := ioutil.ReadAll(c.Request.Body)
 		c.JSON(200, gin.H{
-			"message": "pong",
+			"message": body,
 		})
 	})
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
